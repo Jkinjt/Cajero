@@ -1,13 +1,28 @@
 package com.iesfranciscodelosrios.Cajero.client.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Client {
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+public class Client implements Serializable {
+	private final static long serialVersionUID=1L;
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id")
 	private int id;
+	@Column(name="id")
 	private String name;
+	@Column(name="id")
 	private String password;
+	@OneToMany(mappedBy = "client",cascade = CascadeType.ALL,orphanRemoval=true)
 	private List<Account> acounts;
 	/**
 	 * @param id

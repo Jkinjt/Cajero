@@ -1,11 +1,24 @@
 package com.iesfranciscodelosrios.Cajero.client.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Operator {
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+public class Operator implements Serializable {
+	
+	
+	private final static long serialVersionUID=1L;
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id")
 	private int id;
+	@Column(name="name")
 	private String name;
+	@Column(name="password")
 	private String password;
 	/**
 	 * @param id
