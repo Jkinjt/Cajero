@@ -7,7 +7,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
@@ -17,7 +16,7 @@
       </ImageView>
       <TextField layoutX="226.0" layoutY="165.0" promptText="USUARIO" />
       <TextField layoutX="226.0" layoutY="208.0" promptText="CONTRASEÑA" />
-      <Button layoutX="250.0" layoutY="265.0" mnemonicParsing="false" text="INICIAR SESIÓN" />
+      <Button layoutX="225.0" layoutY="258.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="149.0" text="INICIAR SESIÓN" />
       <TextField alignment="CENTER" editable="false" layoutX="176.0" layoutY="81.0" text="ALIBABA`S CAVE">
          <font>
             <Font size="20.0" />
