@@ -43,24 +43,24 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="508.0" prefWidth="705.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ImageView fitHeight="529.0" fitWidth="962.0" layoutX="-519.0" layoutY="-21.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="fondo" fitHeight="529.0" fitWidth="962.0" layoutX="-519.0" layoutY="-21.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@EHlOSPQWwAAhpwW.jpg" />
          </image>
       </ImageView>
-      <TableView layoutX="261.0" prefHeight="508.0" prefWidth="444.0">
+      <TableView fx:id="tablaInicio" layoutX="261.0" prefHeight="508.0" prefWidth="444.0">
         <columns>
-          <TableColumn prefWidth="202.0" text="Numero de Cuenta" />
-          <TableColumn prefWidth="241.0" text="Saldo" />
+          <TableColumn fx:id="clm_Cuenta" prefWidth="202.0" text="Numero de Cuenta" />
+          <TableColumn fx:id="clm_Saldo" prefWidth="241.0" text="Saldo" />
         </columns>
       </TableView>
-      <TextField alignment="CENTER" editable="false" layoutX="6.0" layoutY="21.0" text="ALIBABA`S CAVE">
+      <TextField fx:id="tf_NBanco" alignment="CENTER" editable="false" layoutX="6.0" layoutY="21.0" text="ALIBABA`S CAVE">
          <font>
             <Font size="20.0" />
          </font>
       </TextField>
-      <TextField layoutX="56.0" layoutY="178.0" />
-      <TextField alignment="CENTER" editable="false" layoutX="56.0" layoutY="146.0" text="NOMBRE :" />
-      <Button layoutX="77.0" layoutY="390.0" mnemonicParsing="false" prefHeight="67.0" prefWidth="128.0" text="SALIR" />
+      <TextField fx:id="tf_SalidaNombre" layoutX="56.0" layoutY="178.0" />
+      <TextField fx:id="tf_Nombre" alignment="CENTER" editable="false" layoutX="56.0" layoutY="146.0" text="NOMBRE :" />
+      <Button fx:id="btn_salir" layoutX="77.0" layoutY="390.0" mnemonicParsing="false" prefHeight="67.0" prefWidth="128.0" text="SALIR" />
    </children>
 </AnchorPane>
