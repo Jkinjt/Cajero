@@ -2,13 +2,14 @@ package com.iesfranciscodelosrios.Cajero.client.singleton;
 
 import java.net.Socket;
 
-import com.iesfranciscodelosrios.Cajero.client.model.Client;
+
+import com.iesfranciscodelosrios.Cajero.client.model.ClientBanco;
 
 public class ClientSocket {
 	
 	private static ClientSocket _instance;
 	
-	private Client client;
+	private ClientBanco client;
 	private Socket socket;
 
 	/**
@@ -17,7 +18,7 @@ public class ClientSocket {
 	public ClientSocket(Socket socket) {
 		super();
 		this.socket = socket;
-		this.client=new Client();
+		this.client=new ClientBanco();
 	}
 	
 	public static ClientSocket getInstance(Socket socket) {
@@ -30,14 +31,14 @@ public class ClientSocket {
 	/**
 	 * @return the client
 	 */
-	public Client getClient() {
+	public ClientBanco getClient() {
 		return client;
 	}
 
 	/**
 	 * @param client the client to set
 	 */
-	public void setClient(Client client) {
+	public void setClient(ClientBanco client) {
 		this.client = client;
 	}
 

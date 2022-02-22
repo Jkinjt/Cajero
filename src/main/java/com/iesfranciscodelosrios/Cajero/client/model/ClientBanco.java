@@ -1,20 +1,35 @@
-package com.iesfranciscodelosrios.Cajero.server.model;
+package com.iesfranciscodelosrios.Cajero.client.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Client {
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+public class ClientBanco implements Serializable {
+	private final static long serialVersionUID=1L;
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id")
 	private int id;
+	@Column(name="id")
 	private String name;
+	@Column(name="id")
 	private String password;
+	@OneToMany(mappedBy = "client",cascade = CascadeType.ALL,orphanRemoval=true)
 	private List<Account> acounts;
 	/**
 	 * @param id
 	 * @param name
 	 * @param password
 	 */
-	public Client(int id, String name, String password, List<Account> accounts) {
+	public ClientBanco(int id, String name, String password, List<Account> accounts) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -24,14 +39,14 @@ public class Client {
 	/**
 	 * 
 	 */
-	public Client() {
+	public ClientBanco() {
 		super();
 	}
 	/**
 	 * @param name
 	 * @param password
 	 */
-	public Client(String name, String password) {
+	public ClientBanco(String name, String password) {
 		super();
 		this.id=-1;
 		this.name = name;
@@ -45,7 +60,7 @@ public class Client {
 	 * @param password
 	 * @param acounts
 	 */
-	public Client(String name, String password, List<Account> acounts) {
+	public ClientBanco(String name, String password, List<Account> acounts) {
 		super();
 		this.name = name;
 		this.password = password;
@@ -117,7 +132,7 @@ public class Client {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Client other = (Client) obj;
+		ClientBanco other = (ClientBanco) obj;
 		return id == other.id;
 	}
 	

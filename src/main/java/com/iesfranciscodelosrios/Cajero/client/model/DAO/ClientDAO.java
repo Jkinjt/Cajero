@@ -3,7 +3,7 @@ package com.iesfranciscodelosrios.Cajero.client.model.DAO;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
-import com.iesfranciscodelosrios.Cajero.client.model.Client;
+import com.iesfranciscodelosrios.Cajero.client.model.ClientBanco;
 import com.iesfranciscodelosrios.Cajero.utils.PersistenceUnit;
 
 public class ClientDAO {
@@ -11,7 +11,7 @@ public class ClientDAO {
 	
 
 	
-	public static void save(Client a) {
+	public static void save(ClientBanco a) {
 		//crear singleton del emf
 		EntityManager em=PersistenceUnit.getEM();
 		em.getTransaction().begin();
@@ -19,11 +19,11 @@ public class ClientDAO {
 		em.getTransaction().commit();
 	}
 	
-	public static Client selectById(Long id) {
-		Client result=null;
+	public static ClientBanco selectById(Long id) {
+		ClientBanco result=null;
 		EntityManager em=PersistenceUnit.getEM();
 		em.getTransaction().begin();
-		result=em.find(Client.class, id);
+		result=em.find(ClientBanco.class, id);
 		em.getTransaction().commit();
 		return result;
 	}

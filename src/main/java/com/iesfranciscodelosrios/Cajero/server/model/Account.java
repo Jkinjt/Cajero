@@ -5,13 +5,13 @@ import java.util.Objects;
 public class Account {
 	private int id;
 	private float balance;
-	private Client client;
+	private ClientBanco client;
 	/**
 	 * @param id
 	 * @param balance
 	 * @param client
 	 */
-	public Account(int id, float balance, Client client) {
+	public Account(int id, float balance, ClientBanco client) {
 		super();
 		this.id = id;
 		this.balance = balance;
@@ -21,7 +21,7 @@ public class Account {
 	 * @param balance
 	 * @param client
 	 */
-	public Account(float balance, Client client) {
+	public Account(float balance, ClientBanco client) {
 		super();
 		this.balance = balance;
 		this.client = client;
@@ -59,13 +59,13 @@ public class Account {
 	/**
 	 * @return the client
 	 */
-	public Client getClient() {
+	public ClientBanco getClient() {
 		return client;
 	}
 	/**
 	 * @param client the client to set
 	 */
-	public void setClient(Client client) {
+	public void setClient(ClientBanco client) {
 		this.client = client;
 	}
 	@Override

@@ -2,16 +2,16 @@ package com.iesfranciscodelosrios.Cajero.server.thread;
 
 import java.net.Socket;
 
-import com.iesfranciscodelosrios.Cajero.server.model.Client;
+import com.iesfranciscodelosrios.Cajero.server.model.ClientBanco;
 
 public class ClientThread extends Thread {
 	private Socket socket;
-	private Client client;
+	private ClientBanco client;
 	/**
 	 * @param socket
 	 * @param client
 	 */
-	public ClientThread(Socket socket, Client client) {
+	public ClientThread(Socket socket, ClientBanco client) {
 		super();
 		this.socket = socket;
 		this.client = client;
@@ -22,6 +22,7 @@ public class ClientThread extends Thread {
 	public ClientThread() {
 		super();
 	}
+
 	/**
 	 * @return the socket
 	 */
@@ -37,13 +38,13 @@ public class ClientThread extends Thread {
 	/**
 	 * @return the client
 	 */
-	public Client getClient() {
+	public ClientBanco getClient() {
 		return client;
 	}
 	/**
 	 * @param client the client to set
 	 */
-	public void setClient(Client client) {
+	public void setClient(ClientBanco client) {
 		this.client = client;
 	}
 	
