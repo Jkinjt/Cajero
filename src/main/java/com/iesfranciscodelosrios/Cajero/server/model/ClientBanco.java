@@ -1,10 +1,13 @@
 package com.iesfranciscodelosrios.Cajero.server.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class ClientBanco {
+public class ClientBanco implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private String name;
 	private String password;
