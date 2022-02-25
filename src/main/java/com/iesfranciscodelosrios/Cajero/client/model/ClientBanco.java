@@ -12,8 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-public class ClientBanco {
-	//private final static long serialVersionUID=1L;
+public class ClientBanco implements Serializable{
+	private final static long serialVersionUID=1L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")

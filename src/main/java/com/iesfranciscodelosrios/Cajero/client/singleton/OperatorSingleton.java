@@ -1,6 +1,8 @@
 package com.iesfranciscodelosrios.Cajero.client.singleton;
 
+import java.io.IOException;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,16 +37,39 @@ public class OperatorSingleton {
 		this.accounts=new ArrayList<>();
 		
 	}
+	
+	
+	private OperatorSingleton() {
+		super();
+		try {
+			this.operatorSocket = new Socket("localhost",9999);
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.clients=new ArrayList<>();
+		this.accounts=new ArrayList<>();
+		
+	}
 	/**
 	 * 
 	 */
-	public OperatorSingleton() {
-		super();
-	}
+
 	
 	public static OperatorSingleton getInstance(Socket operatorSocket) {
 		if(_instance==null) {
 			_instance=new OperatorSingleton(operatorSocket);
+		}
+		return _instance;
+		
+	}
+	
+	public static OperatorSingleton getInstance() {
+		if(_instance==null) {
+			_instance=new OperatorSingleton();
 		}
 		return _instance;
 		
@@ -112,6 +137,15 @@ public class OperatorSingleton {
 		}
 	}
 	
+	
+	
+	
+	public Operator getOperator() {
+		return operator;
+	}
+	public void setOperator(Operator operator) {
+		this.operator = operator;
+	}
 	/**
 	 * Método para borrar un cliente de la lista
 	 * @param client

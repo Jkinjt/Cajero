@@ -1,9 +1,16 @@
 package com.iesfranciscodelosrios.Cajero;
 
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.iesfranciscodelosrios.Cajero.client.model.Account;
+import com.iesfranciscodelosrios.Cajero.client.model.ClientBanco;
+import com.iesfranciscodelosrios.Cajero.client.singleton.ClientSocket;
+import com.iesfranciscodelosrios.Cajero.server.singleton.ClientsSingleton;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -37,10 +44,18 @@ public class InicioScreenController implements Initializable{
 
 	    @FXML
 	    private Button btn_salir;
-
+	    
+	    DataOutputStream flujosalida;
+	    ObjectInputStream flujoEntrada;
+	    ClientSocket singleton;
+	    
 		@Override
 		public void initialize(URL location, ResourceBundle resources) {
-			// TODO Auto-generated method stub
+			
+		
+			singleton=ClientSocket.getInstance();
+			tf_SalidaNombre.setText(singleton.getClient().getName());
+			
 			
 		}
 		

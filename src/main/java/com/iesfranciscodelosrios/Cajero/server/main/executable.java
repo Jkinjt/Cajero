@@ -7,8 +7,10 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import com.iesfranciscodelosrios.Cajero.server.model.ClientBanco;
+import com.iesfranciscodelosrios.Cajero.client.model.ClientBanco;
+import com.iesfranciscodelosrios.Cajero.client.model.Operator;
 import com.iesfranciscodelosrios.Cajero.server.thread.ClientThread;
+import com.iesfranciscodelosrios.Cajero.server.thread.OperatorThread;
 
 public class executable {
 	public static final int puerto = 9999;
@@ -24,20 +26,35 @@ public class executable {
 					DataInputStream flujoEntrada= new DataInputStream(socket.getInputStream());
 					String usuario=flujoEntrada.readUTF();
 					String pass=flujoEntrada.readUTF();
-					if(usuario.equals("Manolo") && pass.equals("1234")) {
+					if(usuario.startsWith("Op")) {
+						if(usuario.equals("Op_Manolo") && pass.equals("1234")) {
 						System.out.println("Has entrado al banco");
-						ClientBanco cliente = new ClientBanco(usuario,pass);
+						Operator operador = new Operator(usuario,pass);
 						ObjectOutputStream flujoSalida= new ObjectOutputStream(socket.getOutputStream());
-						flujoSalida.writeObject(cliente);
+						flujoSalida.writeObject(operador);
 						flujoSalida.flush();
-						//flujoSalida.close();
-					}
+						OperatorThread cc= new OperatorThread(socket, operador);
+						cc.start();
+						System.out.println("Hilo de operador iniciado");
+						}
+			    	}else if (usuario.startsWith("Cl")){
+			    		if(usuario.equals("Cl_Manolo") && pass.equals("1234")) {
+							System.out.println("Has entrado al banco");
+							ClientBanco cliente = new ClientBanco(usuario,pass);
+							ObjectOutputStream flujoSalida= new ObjectOutputStream(socket.getOutputStream());
+							flujoSalida.writeObject(cliente);
+							flujoSalida.flush();
+							ClientThread cc= new ClientThread(socket, cliente);
+							cc.start();
+							System.out.println("Hilo de cliente iniciado");
+						}
+			    	}
+					
 					System.out.println("Conexión establecida con el server");
-					ClientThread cc= new ClientThread(socket, new ClientBanco());
+					
 					
 					//Iniciamos el hilo
-					cc.start();
-					System.out.println("Hilo de cliente iniciado---> "+cc.getClient().getName());
+					
 					
 				} catch (Exception e) {
 					e.printStackTrace();

@@ -8,12 +8,13 @@ import java.net.Socket;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.ResourceBundle;
-
 import com.iesfranciscodelosrios.Cajero.client.model.ClientBanco;
+import com.iesfranciscodelosrios.Cajero.client.model.Operator;
 import com.iesfranciscodelosrios.Cajero.client.singleton.ClientSocket;
+import com.iesfranciscodelosrios.Cajero.client.singleton.OperatorSingleton;
 
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -58,24 +59,50 @@ public class loginScreenController{
     private void comprobarUsuario() throws ClassNotFoundException {
     	String usuario= tf_usuario.getText();
     	String password= tf_pass.getText();
-    	try {
-			flujosalida.writeUTF(usuario);
-			flujosalida.flush();
-			flujosalida.writeUTF(password);
-			flujosalida.flush();
-			//flujosalida.close();
-			ClientSocket singleton = new ClientSocket(socket);
-			flujoEntrada= new ObjectInputStream(socket.getInputStream());
-			singleton.setClient((ClientBanco) flujoEntrada.readObject());
-			System.out.println(singleton.getClient().getName());
-			
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    	if(usuario.startsWith("Op")) {
+    		try {
+    			flujosalida.writeUTF(usuario);
+    			flujosalida.flush();
+    			flujosalida.writeUTF(password);
+    			flujosalida.flush();
+    			//flujosalida.close();
+    			OperatorSingleton singleton = OperatorSingleton.getInstance(socket);
+    			flujoEntrada= new ObjectInputStream(socket.getInputStream());
+    			singleton.setOperator((Operator) flujoEntrada.readObject());
+    			App.setRoot("opsOperario");
+    			System.out.println(singleton.getOperator().getName());
+    			
+    		} catch (UnknownHostException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		} catch (IOException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+    	}else if (usuario.startsWith("Cl")){
+    		try {
+    			flujosalida.writeUTF(usuario);
+    			flujosalida.flush();
+    			flujosalida.writeUTF(password);
+    			flujosalida.flush();
+    			//flujosalida.close();
+    			ClientSocket singleton = ClientSocket.getInstance(socket);
+    			flujoEntrada= new ObjectInputStream(socket.getInputStream());
+    			singleton.setClient((ClientBanco) flujoEntrada.readObject());
+    			App.setRoot("inicioScreen");
+    			System.out.println(singleton.getClient().getName());
+    			
+    		} catch (UnknownHostException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		} catch (IOException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+    	}else {
+    		mostrarAlerta("METE ALGO EN CONDICIONES");
+    	}
+    	
     }
     
     @FXML
@@ -89,7 +116,13 @@ public class loginScreenController{
     	
     }
 
-
+    private void mostrarAlerta(String error) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setHeaderText(null);
+        alert.setTitle("ERROR");
+        alert.setContentText(error);
+        alert.showAndWait();
+    }
     
    
 }
