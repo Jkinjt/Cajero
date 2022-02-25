@@ -8,7 +8,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="934.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="934.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.iesfranciscodelosrios.Cajero.OpsOperarioController">
    <children>
       <ImageView fx:id="fondo" fitHeight="697.0" fitWidth="1102.0" layoutX="-99.0" layoutY="-58.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -35,5 +35,6 @@
       <TextField fx:id="tf_CuentaEliminar" layoutX="26.0" layoutY="348.0" prefHeight="67.0" prefWidth="244.0" promptText="CUENTA BANCARIA" />
       <Button fx:id="btn_eliminarCuenta" layoutX="288.0" layoutY="350.0" mnemonicParsing="false" prefHeight="67.0" prefWidth="128.0" text="ELIMINAR" />
       <Button fx:id="btn_Salir" layoutX="183.0" layoutY="472.0" mnemonicParsing="false" prefHeight="67.0" prefWidth="128.0" text="SALIR" />
+      <TextField fx:id="nombre_operario" alignment="CENTER" layoutX="88.0" layoutY="63.0" prefHeight="67.0" prefWidth="244.0" text="OPERARIO NOMBRE" />
    </children>
 </AnchorPane>

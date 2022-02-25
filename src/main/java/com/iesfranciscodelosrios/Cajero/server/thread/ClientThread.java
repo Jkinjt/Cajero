@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
 
-import com.iesfranciscodelosrios.Cajero.server.model.ClientBanco;
+import com.iesfranciscodelosrios.Cajero.client.model.ClientBanco;
 
 
 
@@ -58,19 +58,23 @@ public class ClientThread extends Thread {
 	public void run() {
 		
 		if(this.socket!=null) {
-			while (true) {
-				try {
+			try {
+				
+				while (true) {
+					
 					DataInputStream input=new DataInputStream(this.socket.getInputStream());
 					int option=input.readInt();
 					input.close();
 					choseOptionClient(option);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					
+					
+					
+					
 				}
 				
-				
-				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 		

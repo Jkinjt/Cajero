@@ -1,16 +1,28 @@
 package com.iesfranciscodelosrios.Cajero;
 
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import com.iesfranciscodelosrios.Cajero.client.model.Account;
 import com.iesfranciscodelosrios.Cajero.client.model.ClientBanco;
+import com.iesfranciscodelosrios.Cajero.client.singleton.OperatorSingleton;
 
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-public class OpsOperarioController {
-	
+public class OpsOperarioController implements Initializable{
+	OperatorSingleton singleton;
+	ObjectInputStream flujoEntrada;
+	ObjectOutputStream flujoSalida;
+	DataOutputStream flujoSalidaData;
 
     @FXML
     private ImageView fondo;
@@ -57,10 +69,29 @@ public class OpsOperarioController {
     @FXML
     private Button btn_Salir;
     
+    @FXML
+    private TextField nombre_operario;
+    
+    
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		singleton= OperatorSingleton.getInstance();
+		nombre_operario.setText(singleton.getOperator().getName());
+		
+	}
+    
     
     @FXML
-    private void addUsuario() {
-    	
+    private void createCliente() {
+    	ClientBanco cliente= new ClientBanco("Antonio","1212");
+    	try {
+			flujoSalidaData= new DataOutputStream(singleton.getOperatorSocket().getOutputStream());
+			flujoSalidaData.writeInt(1);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
     }
     
     
@@ -91,7 +122,9 @@ public class OpsOperarioController {
     private void salir() {
     	
     }
-    
+
+
+
     
     
     
