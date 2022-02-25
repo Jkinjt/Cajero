@@ -1,17 +1,19 @@
 package com.iesfranciscodelosrios.Cajero.client.singleton;
 
+import java.io.IOException;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.iesfranciscodelosrios.Cajero.client.model.Account;
-import com.iesfranciscodelosrios.Cajero.client.model.Client;
+import com.iesfranciscodelosrios.Cajero.client.model.ClientBanco;
 import com.iesfranciscodelosrios.Cajero.client.model.Operator;
 
 public class OperatorSingleton {
 	private static OperatorSingleton _instance; 
 	private Operator operator;
-	private List<Client> clients;
+	private List<ClientBanco> clients;
 	private List<Account> accounts;
 	private Socket operatorSocket;
 	/**
@@ -19,7 +21,7 @@ public class OperatorSingleton {
 	 * @param accounts
 	 * @param operatorSocket
 	 */
-	private OperatorSingleton(List<Client> clients, List<Account> accounts, Socket operatorSocket) {
+	private OperatorSingleton(List<ClientBanco> clients, List<Account> accounts, Socket operatorSocket) {
 		super();
 		this.clients = clients;
 		this.accounts = accounts;
@@ -35,12 +37,27 @@ public class OperatorSingleton {
 		this.accounts=new ArrayList<>();
 		
 	}
+	
+	
+	private OperatorSingleton() {
+		super();
+		try {
+			this.operatorSocket = new Socket("localhost",9999);
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.clients=new ArrayList<>();
+		this.accounts=new ArrayList<>();
+		
+	}
 	/**
 	 * 
 	 */
-	public OperatorSingleton() {
-		super();
-	}
+
 	
 	public static OperatorSingleton getInstance(Socket operatorSocket) {
 		if(_instance==null) {
@@ -50,17 +67,25 @@ public class OperatorSingleton {
 		
 	}
 	
+	public static OperatorSingleton getInstance() {
+		if(_instance==null) {
+			_instance=new OperatorSingleton();
+		}
+		return _instance;
+		
+	}
+	
 	
 	/**
 	 * @return the clients
 	 */
-	public List<Client> getClients() {
+	public List<ClientBanco> getClients() {
 		return clients;
 	}
 	/**
 	 * @param clients the clients to set
 	 */
-	public void setClients(List<Client> clients) {
+	public void setClients(List<ClientBanco> clients) {
 		this.clients = clients;
 	}
 	/**
@@ -100,7 +125,7 @@ public class OperatorSingleton {
 	 * @param client
 	 * @return boolean verdadero si se ha añadido a la lista y falso y si no se ha conseguido añadir
 	 */
-	public boolean addClient(Client client) {
+	public boolean addClient(ClientBanco client) {
 		if(clients.add(client)) {
 			
 			return true;
@@ -112,12 +137,21 @@ public class OperatorSingleton {
 		}
 	}
 	
+	
+	
+	
+	public Operator getOperator() {
+		return operator;
+	}
+	public void setOperator(Operator operator) {
+		this.operator = operator;
+	}
 	/**
 	 * Método para borrar un cliente de la lista
 	 * @param client
 	 * @return boolean verdadero si se ha borrado de la lista y falso si no se ha conseguido borrar
 	 */
-	public boolean removeClient(Client client) {
+	public boolean removeClient(ClientBanco client) {
 		if(clients.remove(client)) {
 		
 			return true;

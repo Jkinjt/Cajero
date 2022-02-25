@@ -12,7 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-public class Client implements Serializable {
+public class ClientBanco implements Serializable{
 	private final static long serialVersionUID=1L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -29,7 +29,7 @@ public class Client implements Serializable {
 	 * @param name
 	 * @param password
 	 */
-	public Client(int id, String name, String password, List<Account> accounts) {
+	public ClientBanco(int id, String name, String password, List<Account> accounts) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -39,14 +39,14 @@ public class Client implements Serializable {
 	/**
 	 * 
 	 */
-	public Client() {
+	public ClientBanco() {
 		super();
 	}
 	/**
 	 * @param name
 	 * @param password
 	 */
-	public Client(String name, String password) {
+	public ClientBanco(String name, String password) {
 		super();
 		this.id=-1;
 		this.name = name;
@@ -60,7 +60,7 @@ public class Client implements Serializable {
 	 * @param password
 	 * @param acounts
 	 */
-	public Client(String name, String password, List<Account> acounts) {
+	public ClientBanco(String name, String password, List<Account> acounts) {
 		super();
 		this.name = name;
 		this.password = password;
@@ -132,7 +132,7 @@ public class Client implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Client other = (Client) obj;
+		ClientBanco other = (ClientBanco) obj;
 		return id == other.id;
 	}
 	
