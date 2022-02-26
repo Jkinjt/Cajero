@@ -90,12 +90,12 @@ public class ClientThread extends Thread {
 		return 500;
 	}
 	
-	public int substracSalary(int substracAmount) {
+	public float substracSalary(float substracAmount) {
 		
 		return 500-substracAmount;
 	}
 	
-	public int enterSalary(int enterSalary) {
+	public float enterSalary(float enterSalary) {
 		
 		return 500+enterSalary;
 	}
@@ -106,12 +106,15 @@ public class ClientThread extends Thread {
 	public void choseOptionClient(int option) {
 		switch (option) {
 		case 1:
+			seeSalary();
 			System.out.println("opcion "+ option);
 			break;
 		case 2:
+			enterMoney();
 			System.out.println("opcion "+ option);
 			break;
 		case 3:
+			substracMoney();
 			System.out.println("opcion "+ option);
 	
 	break;	
@@ -120,6 +123,60 @@ public class ClientThread extends Thread {
 			break;
 		}
 	}
+	
+	
+	/**
+	 * Envia el salario actual de una cuenta
+	 */
+	public void seeSalary() {
+		try {
+			DataOutputStream ouput=new DataOutputStream(this.socket.getOutputStream());
+			ouput.writeFloat(getSalary());
+			ouput.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	/**
+	 * Recibe una cantidad desde el cliente que resta una cantidad a una cuenta
+	 */
+	public void substracMoney() {
+		try {
+			DataInputStream input=new DataInputStream(this.socket.getInputStream());
+			DataOutputStream ouput=new DataOutputStream(this.socket.getOutputStream());
+			float aux=input.readFloat();
+			//se resta la cantidad indicada 
+			aux=substracSalary(aux);
+			ouput.writeFloat(aux);
+			ouput.flush();
+			
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	/**
+	 * Recibe una cantidad de dinero de un cliente que suma dicha cantidad a la cuenta
+	 */
+	public void enterMoney() {
+		DataInputStream input;
+		try {
+			input = new DataInputStream(this.socket.getInputStream());
+			DataOutputStream ouput=new DataOutputStream(this.socket.getOutputStream());
+			float aux=input.readFloat();
+			aux=enterSalary(aux);
+			ouput.writeFloat(aux);
+			ouput.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
 	
 	
 	

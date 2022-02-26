@@ -18,7 +18,7 @@ public class Account implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")
-	private int id;
+	private Long id;
 	@Column(name="balance")
 	private float balance;
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -28,7 +28,7 @@ public class Account implements Serializable{
 	 * @param balance
 	 * @param client
 	 */
-	public Account(int id, float balance, ClientBanco client) {
+	public Account(Long id, float balance, ClientBanco client) {
 		super();
 		this.id = id;
 		this.balance = balance;
@@ -52,13 +52,13 @@ public class Account implements Serializable{
 	/**
 	 * @return the id
 	 */
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	/**
