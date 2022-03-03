@@ -7,17 +7,17 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.iesfranciscodelosrios.Cajero.loginScreenController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="715.0" prefWidth="1079.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.iesfranciscodelosrios.Cajero.loginScreenController">
    <children>
-      <ImageView fx:id="fondo" fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="fondo" fitHeight="720.0" fitWidth="1102.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@EHlOSPQWwAAhpwW.jpg" />
          </image>
       </ImageView>
-      <TextField fx:id="tf_usuario" layoutX="226.0" layoutY="165.0" promptText="USUARIO" />
-      <TextField fx:id="tf_pass" layoutX="226.0" layoutY="208.0" promptText="CONTRASEÑA" />
-      <Button fx:id="btn_login" layoutX="225.0" layoutY="258.0" mnemonicParsing="false" onAction="#comprobarUsuario" prefHeight="66.0" prefWidth="149.0" text="INICIAR SESIÓN" />
-      <TextField fx:id="tf_logo" alignment="CENTER" editable="false" layoutX="176.0" layoutY="81.0" text="ALIBABA`S CAVE">
+      <TextField fx:id="tf_usuario" layoutX="465.0" layoutY="325.0" promptText="USUARIO" />
+      <TextField fx:id="tf_pass" layoutX="465.0" layoutY="375.0" promptText="CONTRASEÑA" />
+      <Button fx:id="btn_login" layoutX="465.0" layoutY="429.0" mnemonicParsing="false" onAction="#comprobarUsuario" prefHeight="66.0" prefWidth="149.0" text="INICIAR SESIÓN" />
+      <TextField fx:id="tf_logo" alignment="CENTER" editable="false" layoutX="415.0" layoutY="228.0" text="ALIBABA`S CAVE">
          <font>
             <Font size="20.0" />
          </font>

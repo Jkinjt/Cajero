@@ -2,23 +2,15 @@ package com.iesfranciscodelosrios.Cajero.client.model;
 
 import java.io.Serializable;
 import java.util.Objects;
-
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 public class Operator implements Serializable {
 	
 	
 	private final static long serialVersionUID=1L;
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id")
-	private int id;
-	@Column(name="name")
+
+	protected long id_operator;
+
 	private String name;
-	@Column(name="password")
+
 	private String password;
 	/**
 	 * @param id
@@ -27,7 +19,7 @@ public class Operator implements Serializable {
 	 */
 	public Operator(int id, String name, String password) {
 		super();
-		this.id = id;
+		this.id_operator = id;
 		this.name = name;
 		this.password = password;
 	}
@@ -49,14 +41,14 @@ public class Operator implements Serializable {
 	/**
 	 * @return the id
 	 */
-	public int getId() {
-		return id;
+	public long getId() {
+		return id_operator;
 	}
 	/**
 	 * @param id the id to set
 	 */
 	public void setId(int id) {
-		this.id = id;
+		this.id_operator = id;
 	}
 	/**
 	 * @return the name
@@ -84,11 +76,11 @@ public class Operator implements Serializable {
 	}
 	@Override
 	public String toString() {
-		return "Operator [id=" + id + ", name=" + name + ", password=" + password + "]";
+		return "Operator [id=" + id_operator + ", name=" + name + ", password=" + password + "]";
 	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(id);
+		return Objects.hash(id_operator);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -99,7 +91,7 @@ public class Operator implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Operator other = (Operator) obj;
-		return id == other.id;
+		return id_operator == other.id_operator;
 	}
 	
 	

@@ -5,24 +5,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 public class ClientBanco implements Serializable{
+	
 	private final static long serialVersionUID=1L;
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id")
+	
 	private int id;
-	@Column(name="id")
+	
 	private String name;
-	@Column(name="id")
+	
 	private String password;
-	@OneToMany(mappedBy = "client",cascade = CascadeType.ALL,orphanRemoval=true)
+	
 	private List<Account> acounts;
 	/**
 	 * @param id
@@ -35,6 +28,13 @@ public class ClientBanco implements Serializable{
 		this.name = name;
 		this.password = password;
 		this.acounts=accounts;
+	}
+	
+	public ClientBanco(int id, String name, String password) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.password = password;
 	}
 	/**
 	 * 

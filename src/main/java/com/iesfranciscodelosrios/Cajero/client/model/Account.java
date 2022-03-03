@@ -3,25 +3,17 @@ package com.iesfranciscodelosrios.Cajero.client.model;
 import java.io.Serializable;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+
 
 public class Account implements Serializable{
 	
+	
 	private final static long serialVersionUID=1L;
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id")
-	private Long id;
-	@Column(name="balance")
+	
+	protected long id;
+	
 	private float balance;
-	@ManyToOne(fetch = FetchType.EAGER)
+	
 	private ClientBanco client;
 	/**
 	 * @param id
@@ -33,6 +25,13 @@ public class Account implements Serializable{
 		this.id = id;
 		this.balance = balance;
 		this.client = client;
+	}
+	
+	public Account(Long id, float balance, int client_id) {
+		super();
+		this.id = id;
+		this.balance = balance;
+		client_id= this.client.getId();
 	}
 	/**
 	 * @param balance

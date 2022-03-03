@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import com.iesfranciscodelosrios.Cajero.client.model.Account;
 import com.iesfranciscodelosrios.Cajero.client.model.ClientBanco;
 
 public class ClientSocket {
@@ -13,6 +14,7 @@ public class ClientSocket {
 	private static final int port=9999;
 	private ClientBanco client;
 	private Socket socket;
+	private Account cuenta;
 
 	/**
 	 * @param socket
@@ -76,6 +78,16 @@ public class ClientSocket {
 	 */
 	public void setSocket(Socket socket) {
 		this.socket = socket;
+	}
+	
+	
+
+	public Account getCuenta() {
+		return cuenta;
+	}
+
+	public void setCuenta(Account cuenta) {
+		this.cuenta = cuenta;
 	}
 
 	@Override

@@ -7,9 +7,10 @@ import com.iesfranciscodelosrios.Cajero.client.model.DAO.AccountDAO;
 
 public class Test {
 	public static void main(String[] args) {
-		ClientBanco c= new ClientBanco("Juan", "1212");
-		Account a= new Account(2, 2500, c);
-		AccountDAO.save(a);
+		ClientBanco c= new ClientBanco(1,"Juan", "1212");
+		Account a= new Account(1L, 2500f, c);
+		AccountDAO adao= new AccountDAO();
+		adao.guardarCuenta(2500.45f, c.getId());
 		
 	}
 }

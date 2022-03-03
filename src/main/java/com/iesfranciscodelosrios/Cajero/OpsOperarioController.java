@@ -9,17 +9,22 @@ import java.util.ResourceBundle;
 
 import com.iesfranciscodelosrios.Cajero.client.model.Account;
 import com.iesfranciscodelosrios.Cajero.client.model.ClientBanco;
+import com.iesfranciscodelosrios.Cajero.client.singleton.ClientSocket;
 import com.iesfranciscodelosrios.Cajero.client.singleton.OperatorSingleton;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 public class OpsOperarioController implements Initializable{
-	OperatorSingleton singleton;
+	OperatorSingleton singletonOperario;
+	ClientSocket singleton;
 	ObjectInputStream flujoEntrada;
 	ObjectOutputStream flujoSalida;
 	DataOutputStream flujoSalidaData;
@@ -34,7 +39,7 @@ public class OpsOperarioController implements Initializable{
     private Button btn_ingresar;
 
     @FXML
-    private TextField tf_cuentaAdd;
+    private TextField tf_saldoCuenta;
 
     @FXML
     private Button btn_IngresarCuenta;
@@ -43,10 +48,10 @@ public class OpsOperarioController implements Initializable{
     private TableView<Account> tablaCuentas;
 
     @FXML
-    private TableColumn<Integer, Account> columnaCuentaID;
+    private TableColumn<Account, Long> columnaCuentaID;
 
     @FXML
-    private TableColumn<Float, Account> columnaSaldo;
+    private TableColumn<Account, Float> columnaSaldo;
 
     @FXML
     private TableColumn<String, ClientBanco> columnaCliente;
@@ -55,13 +60,13 @@ public class OpsOperarioController implements Initializable{
     private TableView<ClientBanco> tablaUsuarios;
 
     @FXML
-    private TableColumn<String, ClientBanco> columnaNombre;
+    private TableColumn<ClientBanco, String> columnaNombre;
 
     @FXML
-    private TableColumn<Integer, Account> columnaCuentaUsuarios;
+    private TableColumn<Account, Long> columnaCuentaUsuarios;
 
     @FXML
-    private TextField tf_CuentaEliminar;
+    private ComboBox<Account> cuentaEliminar;
 
     @FXML
     private Button btn_eliminarCuenta;
@@ -72,11 +77,21 @@ public class OpsOperarioController implements Initializable{
     @FXML
     private TextField nombre_operario;
     
+    @FXML
+    private ComboBox<ClientBanco> cb_Cliente;
+
+    @FXML
+    private TextField tf_contra;
+    
     
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		singleton= OperatorSingleton.getInstance();
-		nombre_operario.setText(singleton.getOperator().getName());
+		singletonOperario= OperatorSingleton.getInstance();
+		singleton=ClientSocket.getInstance();
+		nombre_operario.setText(singletonOperario.getOperator().getName());
+		
+		 tablaCuentas();
+		 tablaUsuarios();
 		
 	}
     
@@ -85,7 +100,7 @@ public class OpsOperarioController implements Initializable{
     private void createCliente() {
     	ClientBanco cliente= new ClientBanco("Antonio","1212");
     	try {
-			flujoSalidaData= new DataOutputStream(singleton.getOperatorSocket().getOutputStream());
+			flujoSalidaData= new DataOutputStream(singletonOperario.getOperatorSocket().getOutputStream());
 			flujoSalidaData.writeInt(1);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -103,24 +118,30 @@ public class OpsOperarioController implements Initializable{
     
     @FXML
     private void deleteCuenta() {
-    	
+    	Long id_cancion=cuentaEliminar.getSelectionModel().getSelectedItem().getId();
+    	//aqui iria metodo de la base de datos para pasarle el id para eliminar la cuenta
+    	System.out.println(id_cancion);
     }
     
     
     @FXML
     private void tablaCuentas() {
-    	
+    	tablaCuentas.setItems(FXCollections.observableArrayList(singletonOperario.getAccounts()));
+    	this.columnaCuentaID.setCellValueFactory(new PropertyValueFactory<Account,Long>("id"));
+    	this.columnaSaldo.setCellValueFactory(new PropertyValueFactory<Account,Float>("balance"));
     }
     
     @FXML
     private void tablaUsuarios() {
-    	
+    	tablaUsuarios.setItems(FXCollections.observableArrayList(singletonOperario.getClients()));
+    	this.columnaNombre.setCellValueFactory(new PropertyValueFactory<ClientBanco,String>("nombre"));
+    	this.columnaCuentaUsuarios.setCellValueFactory(new PropertyValueFactory<Account,Long>("id"));
     }
     
     
     @FXML
-    private void salir() {
-    	
+    private void salir() throws IOException {
+    	App.setRoot("LoginSceen");
     }
 
 
