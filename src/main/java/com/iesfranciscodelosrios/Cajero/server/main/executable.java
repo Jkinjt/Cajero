@@ -9,6 +9,8 @@ import java.net.Socket;
 
 import com.iesfranciscodelosrios.Cajero.client.model.ClientBanco;
 import com.iesfranciscodelosrios.Cajero.client.model.Operator;
+import com.iesfranciscodelosrios.Cajero.client.model.DAO.ClientDAO;
+import com.iesfranciscodelosrios.Cajero.client.model.DAO.OperatorDAO;
 import com.iesfranciscodelosrios.Cajero.server.thread.ClientThread;
 import com.iesfranciscodelosrios.Cajero.server.thread.OperatorThread;
 
@@ -27,24 +29,24 @@ public class executable {
 					String usuario=flujoEntrada.readUTF();
 					String pass=flujoEntrada.readUTF();
 					if(usuario.startsWith("Op")) {
-						if(usuario.equals("Op_Manolo") && pass.equals("1234")) {
+						Operator o=OperatorDAO.buscarUser(usuario);
+						if(usuario.equals(o.getName()) && pass.equals(o.getPassword())) {
 						System.out.println("Has entrado al banco");
-						Operator operador = new Operator(usuario,pass);
 						ObjectOutputStream flujoSalida= new ObjectOutputStream(socket.getOutputStream());
-						flujoSalida.writeObject(operador);
+						flujoSalida.writeObject(o);
 						flujoSalida.flush();
-						OperatorThread cc= new OperatorThread(socket, operador);
+						OperatorThread cc= new OperatorThread(socket, o);
 						cc.start();
 						System.out.println("Hilo de operador iniciado");
 						}
 			    	}else if (usuario.startsWith("Cl")){
-			    		if(usuario.equals("Cl_Manolo") && pass.equals("1234")) {
+			    		ClientBanco c=ClientDAO.buscarUser(usuario);
+			    		if(usuario.equals(c.getName()) && pass.equals(c.getPassword())) {
 							System.out.println("Has entrado al banco");
-							ClientBanco cliente = new ClientBanco(usuario,pass);
 							ObjectOutputStream flujoSalida= new ObjectOutputStream(socket.getOutputStream());
-							flujoSalida.writeObject(cliente);
+							flujoSalida.writeObject(c);
 							flujoSalida.flush();
-							ClientThread cc= new ClientThread(socket, cliente);
+							ClientThread cc= new ClientThread(socket, c);
 							cc.start();
 							System.out.println("Hilo de cliente iniciado");
 						}

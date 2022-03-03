@@ -3,18 +3,16 @@ package com.iesfranciscodelosrios.Cajero.client.model;
 import java.io.Serializable;
 import java.util.Objects;
 
+public class Account implements Serializable {
 
+	private final static long serialVersionUID = 1L;
 
-public class Account implements Serializable{
-	
-	
-	private final static long serialVersionUID=1L;
-	
 	protected long id;
-	
+
 	private float balance;
-	
+
 	private ClientBanco client;
+
 	/**
 	 * @param id
 	 * @param balance
@@ -26,13 +24,14 @@ public class Account implements Serializable{
 		this.balance = balance;
 		this.client = client;
 	}
-	
+
 	public Account(Long id, float balance, int client_id) {
 		super();
 		this.id = id;
 		this.balance = balance;
-		client_id= this.client.getId();
+		client_id = this.client.getId();
 	}
+
 	/**
 	 * @param balance
 	 * @param client
@@ -42,56 +41,76 @@ public class Account implements Serializable{
 		this.balance = balance;
 		this.client = client;
 	}
+
 	/**
 	 * 
 	 */
 	public Account() {
 		super();
 	}
+
 	/**
 	 * @return the id
 	 */
 	public Long getId() {
 		return id;
 	}
+
 	/**
 	 * @param id the id to set
 	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	/**
 	 * @return the balance
 	 */
 	public float getBalance() {
 		return balance;
 	}
+
 	/**
 	 * @param balance the balance to set
 	 */
 	public void setBalance(float balance) {
 		this.balance = balance;
 	}
+
 	/**
 	 * @return the client
 	 */
 	public ClientBanco getClient() {
 		return client;
 	}
+
 	/**
 	 * @param client the client to set
 	 */
 	public void setClient(ClientBanco client) {
 		this.client = client;
 	}
+
+	public float substracSalary(float substracAmount) {
+
+		return 500 - substracAmount;
+	}
+
+	public float enterSalary(float enterSalary) {
+
+		return 500 + enterSalary;
+	}
+
 	@Override
 	public String toString() {
 		return "Account [id=" + id + ", balance=" + balance + ", client=" + client + "]";
 	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(balance, client, id);
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -104,7 +123,5 @@ public class Account implements Serializable{
 		return Float.floatToIntBits(balance) == Float.floatToIntBits(other.balance)
 				&& Objects.equals(client, other.client) && id == other.id;
 	}
-	
-	
 
 }

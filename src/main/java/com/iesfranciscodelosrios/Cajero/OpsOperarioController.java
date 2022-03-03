@@ -27,7 +27,6 @@ public class OpsOperarioController implements Initializable{
 	ClientSocket singleton;
 	ObjectInputStream flujoEntrada;
 	ObjectOutputStream flujoSalida;
-	DataOutputStream flujoSalidaData;
 
     @FXML
     private ImageView fondo;
@@ -100,8 +99,11 @@ public class OpsOperarioController implements Initializable{
     private void createCliente() {
     	ClientBanco cliente= new ClientBanco("Antonio","1212");
     	try {
-			flujoSalidaData= new DataOutputStream(singletonOperario.getOperatorSocket().getOutputStream());
-			flujoSalidaData.writeInt(1);
+			flujoSalida= new ObjectOutputStream(singletonOperario.getOperatorSocket().getOutputStream());
+			flujoSalida.writeInt(1);
+			flujoSalida.flush();
+			//flujoSalida= new ObjectOutputStream(singleton.getSocket().getOutputStream());
+			flujoSalida.writeObject(cliente);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -112,15 +114,38 @@ public class OpsOperarioController implements Initializable{
     
     @FXML
     private void addCuenta() {
-    	
+    	ClientBanco c= new ClientBanco("Antonio","1212");
+    	Account a= new Account(1L, 2500f, c);
+    	try {
+			flujoSalida= new ObjectOutputStream(singletonOperario.getOperatorSocket().getOutputStream());
+			flujoSalida.writeInt(2);
+			flujoSalida.flush();
+			//flujoSalida= new ObjectOutputStream(singleton.getSocket().getOutputStream());
+			flujoSalida.writeObject(a);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
     }
     
     
     @FXML
     private void deleteCuenta() {
-    	Long id_cancion=cuentaEliminar.getSelectionModel().getSelectedItem().getId();
-    	//aqui iria metodo de la base de datos para pasarle el id para eliminar la cuenta
-    	System.out.println(id_cancion);
+    	//Long id_cancion=cuentaEliminar.getSelectionModel().getSelectedItem().getId();
+    	ClientBanco c= new ClientBanco("Antonio","1212");
+    	Account a= new Account(1L, 2500f, c);
+    	try {
+			flujoSalida= new ObjectOutputStream(singletonOperario.getOperatorSocket().getOutputStream());
+			flujoSalida.writeInt(3);
+			flujoSalida.flush();
+			//flujoSalida= new ObjectOutputStream(singleton.getSocket().getOutputStream());
+			flujoSalida.writeObject(a);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   
     }
     
     

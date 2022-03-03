@@ -16,6 +16,9 @@ public class OperatorThread  extends Thread{
 	private Socket socket;
 	private Operator operador;
 	
+	private ObjectOutputStream objectouput;
+	private ObjectInputStream objectinput;
+	
 	public OperatorThread(Socket socket, Operator operador) {
 		super();
 		this.socket = socket;
@@ -47,10 +50,10 @@ public class OperatorThread  extends Thread{
 			try {
 				
 				while (true) {
-					
-					DataInputStream input=new DataInputStream(this.socket.getInputStream());
-					int option=input.readInt();
-					input.close();
+					this.objectouput=new ObjectOutputStream(this.socket.getOutputStream());
+					this.objectinput=new ObjectInputStream(this.socket.getInputStream());
+					int option=objectinput.readInt();
+				
 					choseOptionClient(option);
 					
 					
@@ -107,18 +110,15 @@ public class OperatorThread  extends Thread{
 	 * Método que se usa para rebir un cliente del operario y almacenarlo en la base de datos
 	 */
 	public boolean saveClient() {
-		ObjectInputStream objectInput;
-		DataOutputStream ouput;
 		boolean result=false;
 		try {
-			objectInput=new ObjectInputStream(this.socket.getInputStream());
-			ouput=new DataOutputStream(this.socket.getOutputStream());
 			try {
-				ClientBanco client=(ClientBanco) objectInput.readObject();
+				ClientBanco client=(ClientBanco) objectinput.readObject();
 				
 				//se guarda en la base de datos
 				System.out.println(client.getName());
-				ouput.writeBoolean(result);
+				objectouput.writeBoolean(result);
+				objectouput.flush();
 				result=true;
 				
 				return result;
@@ -144,18 +144,15 @@ public class OperatorThread  extends Thread{
 	 * Método que se usa para recibir una cuenta de un operario y guardarlo en la base de datos
 	 */
 	public boolean saveAccount() {
-		ObjectInputStream objectInput;
-		DataOutputStream ouput;
 		boolean result=false;
 		try {
-			objectInput=new ObjectInputStream(this.socket.getInputStream());
-			ouput=new DataOutputStream(this.socket.getOutputStream());
 			try {
-				Account account=(Account) objectInput.readObject();
+				Account account=(Account) objectinput.readObject();
 				
 				//se guarda en la base de datos
 				System.out.println(account.getBalance());
-				ouput.writeBoolean(result);
+				objectouput.writeBoolean(result);
+				objectouput.flush();
 				result=true;
 				
 				return result;
@@ -181,18 +178,15 @@ public class OperatorThread  extends Thread{
 	 * Método que se usa para recibir una cuenta de un cliente y eliminarla
 	 */
 	public boolean deleteAccount() {
-		ObjectInputStream objectInput;
-		DataOutputStream ouput;
 		boolean result=false;
 		try {
-			objectInput=new ObjectInputStream(this.socket.getInputStream());
-			ouput=new DataOutputStream(this.socket.getOutputStream());
 			try {
-				Account account=(Account) objectInput.readObject();
+				Account account=(Account) objectinput.readObject();
 				
 				//se borra de la base de datos
 				System.out.println(account.getBalance());
-				ouput.writeBoolean(result);
+				objectouput.writeBoolean(result);
+				objectouput.flush();
 				
 				return result;
 			} catch (ClassNotFoundException e) {
@@ -218,18 +212,18 @@ public class OperatorThread  extends Thread{
 	 * 
 	 */
 	public boolean seeClient() {
-		DataInputStream input;
-		ObjectOutputStream objectOuput;
+		
 		boolean result=false;
 		
 		try {
-			input=new DataInputStream(this.socket.getInputStream());
-			objectOuput=new ObjectOutputStream(this.socket.getOutputStream());
 			
-			Long idClient=input.readLong();
+			
+			Long idClient=objectinput.readLong();
+			System.out.println("idClient--->"+idClient);
 			//Se busca el id en la base de datos
 			ClientBanco client= new ClientBanco("Juanito","1234");
-			objectOuput.writeObject(client);
+			objectouput.writeObject(client);
+			objectouput.flush();
 			
 			result=true;
 			
@@ -253,21 +247,20 @@ public class OperatorThread  extends Thread{
 	 */
 	
 	public boolean seeAccount() {
-		DataInputStream input;
-		ObjectOutputStream objectOuput;
+		
 		boolean result=false;
 		
 		try {
-			input=new DataInputStream(this.socket.getInputStream());
-			objectOuput=new ObjectOutputStream(this.socket.getOutputStream());
 			
-			Long idAccount=input.readLong();
+			
+			Long idAccount=objectinput.readLong();
+			System.out.println("id--->"+idAccount);
 			//Se busca el id en la base de datos
 			ClientBanco client= new ClientBanco("Juanito","1234");
 			Account account= new Account(idAccount,100.00f,client);
 			
-			objectOuput.writeObject(account);
-			
+			objectouput.writeObject(account);
+			objectouput.flush();
 			result=true;
 			
 			return result;

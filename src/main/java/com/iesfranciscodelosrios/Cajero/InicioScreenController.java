@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 
 import com.iesfranciscodelosrios.Cajero.client.model.Account;
 import com.iesfranciscodelosrios.Cajero.client.model.ClientBanco;
+import com.iesfranciscodelosrios.Cajero.client.model.DAO.AccountDAO;
 import com.iesfranciscodelosrios.Cajero.client.singleton.ClientSocket;
 import com.iesfranciscodelosrios.Cajero.server.singleton.ClientsSingleton;
 
@@ -60,11 +61,10 @@ public class InicioScreenController implements Initializable{
 			
 		
 			singleton=ClientSocket.getInstance();
-			singleton.getClient().getAcounts().add(new Account(1L, 2500f, singleton.getClient()));
-			singleton.getClient().getAcounts().add(new Account(2L, 44252f, singleton.getClient()));
+			
 			tf_SalidaNombre.setText(singleton.getClient().getName());
 			
-			System.out.println(singleton.getClient().getAcounts());
+			
 			tablaCuentas();
 			
 			
@@ -78,7 +78,7 @@ public class InicioScreenController implements Initializable{
 	    private void tablaCuentas() {
 			//dentro del observable iria la lista de cuenta de la bbdd
 			
-	    	tablaInicio.setItems(FXCollections.observableArrayList(singleton.getClient().getAcounts()));
+	    	tablaInicio.setItems(FXCollections.observableArrayList(AccountDAO.getContenido(singleton.getClient())));
 	    	this.clm_Cuenta.setCellValueFactory(new PropertyValueFactory<Account,Integer>("id"));
 	    	this.clm_Saldo.setCellValueFactory(new PropertyValueFactory<Account,Float>("balance"));
 	    	

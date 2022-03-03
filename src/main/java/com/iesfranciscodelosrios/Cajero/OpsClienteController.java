@@ -4,6 +4,7 @@ package com.iesfranciscodelosrios.Cajero;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -40,7 +41,7 @@ public class OpsClienteController implements Initializable {
     @FXML
     private Button btn_salir;
     
-    DataOutputStream flujosalida;
+    ObjectOutputStream flujosalida;
     ObjectInputStream flujoEntrada;
     ClientSocket singleton;
     ClientThread operaciones;
@@ -61,11 +62,31 @@ public class OpsClienteController implements Initializable {
     @FXML
     private void ingresar() {
     	
+    	try {
+    		flujosalida=new ObjectOutputStream(singleton.getSocket().getOutputStream());
+    		flujosalida.writeInt(2);
+    		flujosalida.flush();
+    		singleton.getCuenta().enterSalary(Float.parseFloat(tf_cantidadIngresar.getText()));
+    		flujosalida.writeObject(singleton.getCuenta());
+    		
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
     }
     
     @FXML
     private void retirar() {
     	
+    	try {
+    		flujosalida=new ObjectOutputStream(singleton.getSocket().getOutputStream());
+    		flujosalida.writeInt(3);
+    		flujosalida.flush();
+    		singleton.getCuenta().enterSalary(Float.parseFloat(tf_cantidadRetirar.getText()));
+    		flujosalida.writeObject(singleton.getCuenta());
+    		
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
     }
     
     @FXML

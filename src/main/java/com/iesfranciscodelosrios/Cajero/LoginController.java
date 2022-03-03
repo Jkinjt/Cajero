@@ -5,6 +5,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
+import java.net.SocketException;
 import java.net.UnknownHostException;
 
 import com.iesfranciscodelosrios.Cajero.client.model.ClientBanco;
@@ -117,6 +118,12 @@ public class LoginController {
 	    @FXML
 	    private void salir(ActionEvent event) throws IOException {
 	    	Stage stage = (Stage) this.btn_salir.getScene().getWindow();
+	    	try {
+	    		this.socket.close();
+			} catch (SocketException e) {
+				System.out.println("Socket cerrado");
+			}
+	    	
 	        stage.close();
 	    }
 

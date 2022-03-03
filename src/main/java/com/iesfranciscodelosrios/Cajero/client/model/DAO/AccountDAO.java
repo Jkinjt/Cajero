@@ -2,7 +2,10 @@ package com.iesfranciscodelosrios.Cajero.client.model.DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.iesfranciscodelosrios.Cajero.client.model.Account;
 import com.iesfranciscodelosrios.Cajero.client.model.ClientBanco;
@@ -17,6 +20,7 @@ public class AccountDAO extends Account {
 
 	private final static String GUARDAR = "INSERT INTO account (balance, id_client) VALUES (?,?)";
 	private final static String ELIMINAR = "DELETE FROM account WHERE id = ? ";
+	private final static String CUENTAS = "SELECT * FROM account WHERE id_client=?";
 
 	public AccountDAO(Long id, float balance, ClientBanco client) {
 		super(id, balance, client);
@@ -68,6 +72,36 @@ public class AccountDAO extends Account {
 		}
 
 		return valid;
+	}
+	
+	public static List<Account> getContenido(ClientBanco c) {
+		Connection conex= conexionBD.getConexion();
+		
+		List<Account> cuentas= new ArrayList<Account>();
+		
+		if(conex!=null) {
+			try {
+				PreparedStatement q=conex.prepareStatement(CUENTAS);
+				q.setInt(1, c.getId());
+				ResultSet rs=q.executeQuery();
+				
+				while(rs.next()) {
+					Account a = new Account();
+					a.setId(rs.getLong("id"));
+					a.setBalance(rs.getFloat("balance"));
+					a.setClient(c);
+					cuentas.add(a);
+					System.out.println(cuentas);
+					
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+					
+			return cuentas;
 	}
 
 }
