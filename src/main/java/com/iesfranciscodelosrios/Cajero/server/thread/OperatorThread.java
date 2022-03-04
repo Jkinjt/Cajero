@@ -11,6 +11,8 @@ import java.net.Socket;
 import com.iesfranciscodelosrios.Cajero.client.model.Account;
 import com.iesfranciscodelosrios.Cajero.client.model.ClientBanco;
 import com.iesfranciscodelosrios.Cajero.client.model.Operator;
+import com.iesfranciscodelosrios.Cajero.client.model.DAO.AccountDAO;
+import com.iesfranciscodelosrios.Cajero.client.model.DAO.ClientDAO;
 
 public class OperatorThread  extends Thread{
 	private Socket socket;
@@ -117,6 +119,7 @@ public class OperatorThread  extends Thread{
 				
 				//se guarda en la base de datos
 				System.out.println(client.getName());
+				ClientDAO.add(client);
 				objectouput.writeBoolean(result);
 				objectouput.flush();
 				result=true;
@@ -150,7 +153,8 @@ public class OperatorThread  extends Thread{
 				Account account=(Account) objectinput.readObject();
 				
 				//se guarda en la base de datos
-				System.out.println(account.getBalance());
+				System.out.println(account);
+				AccountDAO.add(account);
 				objectouput.writeBoolean(result);
 				objectouput.flush();
 				result=true;
@@ -185,6 +189,7 @@ public class OperatorThread  extends Thread{
 				
 				//se borra de la base de datos
 				System.out.println(account.getBalance());
+				AccountDAO.eliminar(account.getId());
 				objectouput.writeBoolean(result);
 				objectouput.flush();
 				

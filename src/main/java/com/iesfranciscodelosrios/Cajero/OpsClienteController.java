@@ -61,12 +61,14 @@ public class OpsClienteController implements Initializable {
     
     @FXML
     private void ingresar() {
-    	
     	try {
     		flujosalida=new ObjectOutputStream(singleton.getSocket().getOutputStream());
     		flujosalida.writeInt(2);
     		flujosalida.flush();
-    		singleton.getCuenta().enterSalary(Float.parseFloat(tf_cantidadIngresar.getText()));
+    		Float saldonuevo=Float.parseFloat(tf_cantidadIngresar.getText());
+    		flujosalida.writeFloat(saldonuevo);
+    		flujosalida.flush();
+    		singleton.getCuenta().setBalance(saldonuevo);
     		flujosalida.writeObject(singleton.getCuenta());
     		
 		} catch (Exception e) {
@@ -81,7 +83,8 @@ public class OpsClienteController implements Initializable {
     		flujosalida=new ObjectOutputStream(singleton.getSocket().getOutputStream());
     		flujosalida.writeInt(3);
     		flujosalida.flush();
-    		singleton.getCuenta().enterSalary(Float.parseFloat(tf_cantidadRetirar.getText()));
+    		Float saldonuevo=singleton.getCuenta().getBalance()-Float.parseFloat(tf_cantidadRetirar.getText());
+    		singleton.getCuenta().setBalance(saldonuevo);
     		flujosalida.writeObject(singleton.getCuenta());
     		
 		} catch (Exception e) {
@@ -91,7 +94,9 @@ public class OpsClienteController implements Initializable {
     
     @FXML
     private void salir() {
+    	
     	try {
+    		singleton.getSocket().close();
 			App.setRoot("inicioScreen");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

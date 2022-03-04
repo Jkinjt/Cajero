@@ -10,6 +10,7 @@ import java.net.Socket;
 
 import com.iesfranciscodelosrios.Cajero.client.model.Account;
 import com.iesfranciscodelosrios.Cajero.client.model.ClientBanco;
+import com.iesfranciscodelosrios.Cajero.client.model.DAO.AccountDAO;
 
 public class ClientThread extends Thread {
 	private Socket socket;
@@ -155,9 +156,9 @@ public class ClientThread extends Thread {
 	 */
 	public void substracMoney() throws ClassNotFoundException {
 		try {
-
+			
 			Account c= (Account) objectinput.readObject();
-			System.out.println(c);
+			AccountDAO.retirar(c);
 			objectouput.flush();
 
 		} catch (IOException e) {
@@ -176,7 +177,7 @@ public class ClientThread extends Thread {
 		try {
 
 			Account c= (Account) objectinput.readObject();
-			System.out.println(c);
+			AccountDAO.INGRESAR(c);
 			objectouput.flush();
 
 		} catch (IOException e) {

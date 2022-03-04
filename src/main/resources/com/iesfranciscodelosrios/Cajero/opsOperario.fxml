@@ -30,7 +30,7 @@
       <TableView fx:id="tablaUsuarios" layoutX="605.0" layoutY="330.0" prefHeight="390.0" prefWidth="675.0">
          <columns>
             <TableColumn fx:id="columnaNombre" prefWidth="354.0" text="NOMBRE" />
-            <TableColumn fx:id="columnaCuentaUsuarios" prefWidth="320.0" text="CUENTA" />
+            <TableColumn fx:id="columnaCuentaUsuarios" prefWidth="354.0" text="ID" />
          </columns>
       </TableView>
       <Button fx:id="btn_eliminarCuenta" layoutX="455.0" layoutY="350.0" mnemonicParsing="false" onAction="#deleteCuenta" prefHeight="67.0" prefWidth="128.0" text="ELIMINAR" />

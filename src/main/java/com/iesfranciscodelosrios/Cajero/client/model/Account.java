@@ -93,12 +93,12 @@ public class Account implements Serializable {
 
 	public float substracSalary(float substracAmount) {
 
-		return 500 - substracAmount;
+		return balance - substracAmount;
 	}
 
 	public float enterSalary(float enterSalary) {
 
-		return 500 + enterSalary;
+		return balance+enterSalary;
 	}
 
 	@Override

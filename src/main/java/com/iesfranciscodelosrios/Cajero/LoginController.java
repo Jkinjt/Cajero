@@ -46,15 +46,7 @@ public class LoginController {
 	    ObjectInputStream flujoEntrada;
 		@FXML
 		public void initialize() {
-			try {
-				socket = new Socket("localhost", 9999);
-				flujosalida = new DataOutputStream(socket.getOutputStream());
-				//flujoEntrada = new ObjectInputStream(socket.getInputStream());
-			} catch (UnknownHostException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			
 		}
 
 	    
@@ -63,6 +55,15 @@ public class LoginController {
 	    private void comprobarUsuario() throws ClassNotFoundException {
 	    	String usuario= tf_usuario.getText();
 	    	String password= tf_pass.getText();
+	    	try {
+				socket = new Socket("localhost", 9999);
+				flujosalida = new DataOutputStream(socket.getOutputStream());
+				//flujoEntrada = new ObjectInputStream(socket.getInputStream());
+			} catch (UnknownHostException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 	    	if(usuario.startsWith("Op")) {
 	    		try {
 	    			flujosalida.writeUTF(usuario);
@@ -118,11 +119,7 @@ public class LoginController {
 	    @FXML
 	    private void salir(ActionEvent event) throws IOException {
 	    	Stage stage = (Stage) this.btn_salir.getScene().getWindow();
-	    	try {
-	    		this.socket.close();
-			} catch (SocketException e) {
-				System.out.println("Socket cerrado");
-			}
+	    	
 	    	
 	        stage.close();
 	    }

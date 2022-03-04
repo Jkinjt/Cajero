@@ -21,11 +21,12 @@ public class executable {
 		
 		try {
 			ServerSocket server = new ServerSocket(puerto);
+			DataInputStream flujoEntrada;
 			while(true) {
 				try {
 					//Aceptamos la conexion
 					Socket	socket = server.accept();
-					DataInputStream flujoEntrada= new DataInputStream(socket.getInputStream());
+					flujoEntrada= new DataInputStream(socket.getInputStream());
 					String usuario=flujoEntrada.readUTF();
 					String pass=flujoEntrada.readUTF();
 					if(usuario.startsWith("Op")) {
@@ -53,9 +54,6 @@ public class executable {
 			    	}
 					
 					System.out.println("Conexión establecida con el server");
-					
-					
-					//Iniciamos el hilo
 					
 					
 				} catch (Exception e) {
